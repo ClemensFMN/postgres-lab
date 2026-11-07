@@ -1,0 +1,33 @@
+{
+  "name": "Postgres Lab",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": { "PG_VERSION": "16" }
+  },
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=postgres-lab-pgdata,target=/home/vscode/pgdata,type=volume"
+  ],
+  "containerEnv": {
+    "PGDATA": "/home/vscode/pgdata",
+    "PGHOST": "localhost",
+    "PGPORT": "5432",
+    "PGUSER": "postgres",
+    "PGDATABASE": "lab"
+  },
+  "postStartCommand": "bash .devcontainer/start-postgres.sh",
+  "forwardPorts": [5432],
+  "portsAttributes": {
+    "5432": { "label": "PostgreSQL" }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-ossdata.vscode-pgsql"
+      ],
+      "settings": {
+        "files.associations": { "*.sql": "sql" }
+      }
+    }
+  }
+}
